@@ -8,6 +8,9 @@ class Loader {
 	private $namespace = "App\\Controllers\\";
 
 	function __construct( $url ){
+		//   echo '<script>';
+        // echo 'console.log('. json_encode( $url ) .')';
+        // echo '</script>';
 		if(!empty($_GET)) {
 			$this->url = $_GET;
 		}
@@ -15,7 +18,7 @@ class Loader {
 		if(isset($this->url['controller'])) {
 			$this->controller = $this->namespace . $this->url['controller'];
 		}else {
-			$this->controller = $this->namespace . 'home';
+			$this->controller = $this->namespace . 'PagesController';
 		}
 
 		if(isset($this->url['action'])) {
@@ -32,15 +35,15 @@ class Loader {
 				if(method_exists($this->controller, $this->action)) {
 					return new $this->controller( $this->url, $this->action );
 				} else {
-					throw new Exception("Method {$this->action} does not exists.");
+					throw new \Exception("Method {$this->action} does not exists.");
 				}
 
 			} else {
-				throw new Exception("BaseController of {$this->controller} not found.");
+				throw new \Exception("BaseController of {$this->controller} not found.");
 			}
 
 		} else {
-			throw new Exception("Controller {$this->controller} not found.");
+			throw new \Exception("Controller {$this->controller} not found.");
 		}
 	}
 

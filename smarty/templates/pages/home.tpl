@@ -5,8 +5,6 @@
 	<title></title>
 </head>
 <body>
-{if $header NE ''}
-	<h1>{$header}</h1>
-{/if}
+	<h1>Tên tôi là: {$data.name}, năm nay tôi {$data.age} tuổi</h1>
 </body>
 </html>

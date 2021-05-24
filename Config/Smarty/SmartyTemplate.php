@@ -12,6 +12,5 @@ class SmartyTemplate extends \Smarty {
         $this->setCacheDir( $smarty_path . 'cache' );
         $this->setConfigDir( $smarty_path . 'config' );
     }
-
 }
 ?>

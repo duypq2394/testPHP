@@ -9,6 +9,9 @@ abstract class BaseController {
 	protected $action;
 
 	function __construct($url, $action){
+        // echo '<script>';
+        // echo 'console.log('. json_encode( $url ) .')';
+        // echo '</script>';
 		$this->url = $url;
 		$this->action = $action;
 		$this->tpl = new SmartyTemplate;
@@ -18,14 +21,21 @@ abstract class BaseController {
 		if(!empty($this->action)) return $this->{$this->action}();
 	}
 
-	function excView( $viewName ){
-		$view_file = __DIR__ . DIRECTORY_SEPARATOR . 'Views' . get_class($this) . DIRECTORY_SEPARATOR . $viewName .'.php';
-		if(file_exists($view_file)) {
-			require_once($view_file);
-		} else {
-			throw new Exception('View not found');
-		}
-	}
+	// function execView( $viewName ) {
+
+    //     if( !$viewName ) {
+    //         $class = explode( '\\', get_class( $this ));
+    //         $class = end($class);
+    //     } else {
+    //         $class = $viewName;
+    //     }
+    //     $file = dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'Views' . DIRECTORY_SEPARATOR . $class . '.tpl.php';
+
+    //     if( file_exists( $file )) {
+    //         require_once( $file );
+    //     }
+    //     return false;
+    // }
 }
 
 ?>
