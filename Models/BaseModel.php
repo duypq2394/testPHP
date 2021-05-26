@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Entities\CoffeeEntity;
 
 use App\Classes\Database;
 

@@ -60,5 +60,28 @@ class CoffeeModel extends BaseModel {
         return $coffee;
     }
 
+    function InsertCoffee(CoffeeEntity $coffee){
+
+        $sql = "INSERT INTO coffee (name, type, price, roast, country, image, review )
+                    VALUES (?,?,?,?,?,?,?)";
+
+        $dbh= $this->db->prepare($sql);
+        
+        $dbh->execute([$coffee->name, $coffee->type, $coffee->price, $coffee->roast, $coffee->country, "Images/Coffee/".$coffee->image, $coffee->review]);
+    }
+    
+    function UpdateCoffee($id, CoffeeEntity $coffee){
+        $sql = "UPDATE coffee SET name = ?, type = ?,price = ?,roast = ?,country = ?, image = ?,review = ?
+                        WHERE id = ?";
+
+
+        $dbh= $this->db->prepare($sql);
+        $dbh->execute([$coffee->name, $coffee->type, $coffee->price, $coffee->roast, $coffee->country, "Images/Coffee/".$coffee->image, $coffee->review, $id]);
+    }
+
+    function DeleteCoffee($id){
+        $dbh = $this->db->prepare("DELETE FROM coffee WHERE id = $id");
+        $dbh->execute();
+    }
 }
 ?>

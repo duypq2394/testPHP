@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\CoffeeModel;
-
+use App\Entities\CoffeeEntity;
 //Contains non-database related function for the Coffee page
 class CoffeeController extends BaseController
 {
@@ -61,10 +61,7 @@ class CoffeeController extends BaseController
                 array_push($imageArray, $image);
             }
         }
-
-        //Create <select><option> Values and return result
-        $result = $this->CreateOptionValues($imageArray);
-        return $result;
+        return $imageArray;
     }
 
     //<editor-fold desc="Set Methods">
@@ -102,7 +99,6 @@ class CoffeeController extends BaseController
         $coffeeModel->DeleteCoffee($id);
     }
 
-    //<editor-fold desc="Get Methods">
     function GetCoffeeById($id) {
         $coffeeModel = new CoffeeModel();
         return $coffeeModel->GetCoffeeById($id);
@@ -117,20 +113,28 @@ class CoffeeController extends BaseController
         $coffeeModel = new CoffeeModel();
         return $coffeeModel->GetCoffeeTypes();
     }
-    //<editor-fold>
+
+    // function Login($username, $password)
+    // {
+    //     if ($password_verify($password, "test") == false) {
+    //         $loginerror = 'username or password wrong';
+    //      }
+    //      else {
+   
+    //         if ($user['email_confirmed']==0) {
+    //            //$this->assign('error', 'Please confirm your e-mail adress.');
+    //            $loginerror = 'please confirm your e-mail adress.';            
+    //         }
+    //         else {
+    //            //$_SESSION['loggedUser'] = $user['id'];
+    //            $_SESSION['user'] = $user;
+    //            return true;
+    //         }
+    //      }
+    //      $this->assign('loginerror', $loginerror);
+    // }
+    
 }
 
 ?>
 
-<script>
-//Display a confirmation box when trying to delete an object
-function showConfirm(id)
-{
-    //build the confirmation box
-    var c = confirm("Are you sure you wish to delete this items");
-    // if true, delete item and refresh
-    if(c) {
-        window.location = "CoffeeOverView.php?delete=" + id;
-    }   
-}
-</script>

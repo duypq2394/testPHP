@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-05-24 08:07:38
+/* Smarty version 3.1.39, created on 2021-05-25 08:43:05
   from 'C:\xampp\htdocs\test\testPHP\smarty\templates\Template.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_60ab42aa13bb23_47608875',
+  'unifunc' => 'content_60ac9c79a2f403_71301881',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4410ca3c70dd309d26255cc9f8b5d7cb2fe5642c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\test\\testPHP\\smarty\\templates\\Template.tpl',
-      1 => 1621831027,
+      1 => 1621924984,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_60ab42aa13bb23_47608875 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60ac9c79a2f403_71301881 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 
@@ -38,11 +38,11 @@ function content_60ab42aa13bb23_47608875 (Smarty_Internal_Template $_smarty_tpl)
 
         <nav id="navigation">
             <ul id="nav">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="Coffee.php">Coffee</a></li>
+                <li><a href="index">Home</a></li>
+                <li><a href="coffee">Coffee</a></li>
                 <li><a href="#">Shop</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="Management.php">Management</a></li>
+                <li><a href="management">Management</a></li>
             </ul>
         </nav>
 
@@ -60,5 +60,12 @@ function content_60ab42aa13bb23_47608875 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </body>
 
-</html><?php }
+</html>
+<?php echo '<script'; ?>
+>
+    function show_confirm(){
+        return confirm("Are you sure?");
+    }
+<?php echo '</script'; ?>
+><?php }
 }

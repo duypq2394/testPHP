@@ -14,11 +14,11 @@
 
         <nav id="navigation">
             <ul id="nav">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="Coffee.php">Coffee</a></li>
+                <li><a href="index">Home</a></li>
+                <li><a href="coffee">Coffee</a></li>
                 <li><a href="#">Shop</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="Management.php">Management</a></li>
+                <li><a href="management">Management</a></li>
             </ul>
         </nav>
 
@@ -36,3 +36,8 @@
 </body>
 
 </html>
+<script>
+    function show_confirm(){
+        return confirm("Are you sure?");
+    }
+</script>

@@ -153,3 +153,7 @@ label {
     padding: 4px;
     border: 1px solid #E3E3E3;
 }
+
+.login tr td input {
+    margin-left: 20px
+}

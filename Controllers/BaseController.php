@@ -9,9 +9,6 @@ abstract class BaseController {
 	protected $action;
 
 	function __construct($url, $action){
-        // echo '<script>';
-        // echo 'console.log('. json_encode( $url ) .')';
-        // echo '</script>';
 		$this->url = $url;
 		$this->action = $action;
 		$this->tpl = new SmartyTemplate;
