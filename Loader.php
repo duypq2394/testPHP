@@ -8,9 +8,6 @@ class Loader {
 	private $namespace = "App\\Controllers\\";
 
 	function __construct( $url ){
-		//   echo '<script>';
-        // echo 'console.log('. json_encode( $url ) .')';
-        // echo '</script>';
 		if(!empty($_GET)) {
 			$this->url = $_GET;
 		}

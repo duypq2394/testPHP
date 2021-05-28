@@ -4,7 +4,7 @@ namespace App\Controllers;
 use App\Models\CoffeeModel;
 use App\Entities\CoffeeEntity;
 //Contains non-database related function for the Coffee page
-class CoffeeController extends BaseController
+class  CoffeeController extends BaseController
 {
 
     function CreateOverviewTable()
@@ -36,6 +36,14 @@ class CoffeeController extends BaseController
         $coffeeArray = $coffeeModel->GetCoffeeByType($types);
         $this->tpl->assign('coffeeArray', $coffeeArray);
         $result = $this->tpl->fetch('coffeeTable.tpl');
+        return $result;
+    }
+    function CreateProductList()
+    {
+        $coffeeModel = new CoffeeModel();
+        $coffeeArray = $coffeeModel->GetCoffeeByType("%");
+        $this->tpl->assign('coffeeArray', $coffeeArray);
+        $result = $this->tpl->fetch('products.tpl');
         return $result;
     }
 
@@ -113,27 +121,6 @@ class CoffeeController extends BaseController
         $coffeeModel = new CoffeeModel();
         return $coffeeModel->GetCoffeeTypes();
     }
-
-    // function Login($username, $password)
-    // {
-    //     if ($password_verify($password, "test") == false) {
-    //         $loginerror = 'username or password wrong';
-    //      }
-    //      else {
-   
-    //         if ($user['email_confirmed']==0) {
-    //            //$this->assign('error', 'Please confirm your e-mail adress.');
-    //            $loginerror = 'please confirm your e-mail adress.';            
-    //         }
-    //         else {
-    //            //$_SESSION['loggedUser'] = $user['id'];
-    //            $_SESSION['user'] = $user;
-    //            return true;
-    //         }
-    //      }
-    //      $this->assign('loginerror', $loginerror);
-    // }
-    
 }
 
 ?>

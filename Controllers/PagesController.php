@@ -3,9 +3,10 @@ namespace App\Controllers;
 
 use App\Models\CoffeeModel;
 use App\Controllers\CoffeeController;
+use App\Controllers\OrderController;
 error_reporting(0);
 session_start();
-class PagesController extends CoffeeController
+class PagesController extends BaseController
 {
   public function index()
   {
@@ -18,19 +19,20 @@ class PagesController extends CoffeeController
 
   public function coffee()
   {
+    $coffeeController = new CoffeeController($this->url, $this->action);
     if(isset($_POST['types']))
     {
       //Fill page with coffees of the selected type
-      $coffeeTables = $this->CreateCoffeeTables($_POST['types']);
+      $coffeeTables = $coffeeController->CreateCoffeeTables($_POST['types']);
     }
     else{
       //Page is loaded for the first time, no type selected -> Fetch all types
-      $coffeeTables = $this->CreateCoffeeTables('%');
+      $coffeeTables = $coffeeController->CreateCoffeeTables('%');
     }
   
 
     $title = "Coffee overview";
-    $content = $this->CreateCoffeeDropdownlist().$coffeeTables;
+    $content = $coffeeController->CreateCoffeeDropdownlist().$coffeeTables;
 
    
     // $content = $this->tpl->fetch('pages/coffee.tpl');
@@ -55,12 +57,13 @@ class PagesController extends CoffeeController
 
   public function coffeeAdd()
   {
+    $coffeeController = new CoffeeController($this->url, $this->action);
     $coffeeModel = new CoffeeModel();
     $valueArray = $coffeeModel->GetCoffeeTypes();
     $title = 'Add a new Coffee';
-    $images = $this->GetImages();
+    $images = $coffeeController->GetImages();
 
-    if(isset($_POST["txtName"])) $this->InsertCoffee();
+    if(isset($_POST["txtName"])) $coffeeController->InsertCoffee();
     
     $this->tpl->assign('title', $title);
     $this->tpl->assign('images',$images);
@@ -72,9 +75,10 @@ class PagesController extends CoffeeController
 
   public function coffeeUpdate()
   {
+    $coffeeController = new CoffeeController($this->url, $this->action);
     $coffeeModel = new CoffeeModel();
     $valueArray = $coffeeModel->GetCoffeeTypes();
-    $images = $this->GetImages();
+    $images = $coffeeController->GetImages();
     $title = "Update Title";
     $this->tpl->assign('title', $title);
     $this->tpl->assign('images',$images);
@@ -82,7 +86,7 @@ class PagesController extends CoffeeController
 
 
     if (isset($_POST["update"])) {
-      $coffee = $this->GetCoffeeById($_POST["update"]);
+      $coffee = $coffeeController->GetCoffeeById($_POST["update"]);
       $this->tpl->assign('coffee', $coffee);
       $content = $this->tpl->fetch('pages/coffeeUpdate.tpl');
     }
@@ -97,12 +101,13 @@ class PagesController extends CoffeeController
 
   public function coffeeOverView()
   {
+    $coffeeController = new CoffeeController($this->url, $this->action);
     if(isset($_POST['delete']))
     {
-      $this->DeleteCoffee($_POST["delete"]);
+      $coffeeController->DeleteCoffee($_POST["delete"]);
     }
     $title = "Manage coffee objects";
-    $content = $this->CreateOverViewTable();
+    $content = $coffeeController->CreateOverViewTable();
     $this->tpl->assign('title', $title);
     $this->tpl->assign('content', $content);
     $this->tpl->display('Template.tpl' );
@@ -133,6 +138,30 @@ class PagesController extends CoffeeController
     $content = $this->tpl->fetch('pages/login.tpl');
     $this->tpl->assign('title', $title);
     $this->tpl->assign('content', $content);
+    $this->tpl->display('Template.tpl' );
+  }
+
+  public function shop()
+  {
+
+    $coffeeController = new CoffeeController($this->url, $this->action);
+    $orderController = new OrderController($this->url, $this->action);
+    $coffeeModel = new CoffeeModel();
+
+    $title = "shop";
+    if($_POST["txtName"]) {
+      $error = $orderController->InsertOrder();
+    }
+    if(isset($error)){
+      $this->tpl->assign('error', $error);
+    }
+
+    $coffeeArray = $coffeeModel->GetCoffeeByType("%");
+    $this->tpl->assign('coffeeArray', $coffeeArray);
+    $productList = $this->tpl->fetch('products.tpl');
+   
+    $this->tpl->assign('title', $title);
+    $this->tpl->assign('content', $productList);
     $this->tpl->display('Template.tpl' );
   }
 
