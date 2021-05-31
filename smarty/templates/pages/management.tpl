@@ -1,4 +1,6 @@
 <h3>Coffee</h3>
-<a href="coffeeAdd">Add a new coffee</a><br/>
-<a href="">Upload Image</a><br/>
-<a href="coffeeOverView">Coffee Overview</a><br/>
+<a href="coffeeAdd">製品を追加し</a><br/>
+<a href="">イメージをアップロードし</a><br/>
+<a href="coffeeOverView">コーヒー 概要</a><br/>
+<h3>注文</h3>
+<a href="orderList">注文リスト</a><br/>

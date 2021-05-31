@@ -66,8 +66,11 @@ class CoffeeModel extends BaseModel {
                     VALUES (?,?,?,?,?,?,?)";
 
         $dbh= $this->db->prepare($sql);
+        echo '<script>';
+        echo 'console.log('. json_encode( "ddddd" ) .')';
+        echo '</script>';
+        $a = $dbh->execute([$coffee->name, $coffee->type, $coffee->price, $coffee->roast, $coffee->country, "Images/Coffee/".$coffee->image, $coffee->review]);
         
-        $dbh->execute([$coffee->name, $coffee->type, $coffee->price, $coffee->roast, $coffee->country, "Images/Coffee/".$coffee->image, $coffee->review]);
     }
     
     function UpdateCoffee($id, CoffeeEntity $coffee){
@@ -76,7 +79,10 @@ class CoffeeModel extends BaseModel {
 
 
         $dbh= $this->db->prepare($sql);
-        $dbh->execute([$coffee->name, $coffee->type, $coffee->price, $coffee->roast, $coffee->country, "Images/Coffee/".$coffee->image, $coffee->review, $id]);
+        $a = $dbh->execute([$coffee->name, $coffee->type, $coffee->price, $coffee->roast, $coffee->country, "Images/Coffee/".$coffee->image, $coffee->review, $id]);
+        echo '<script>';
+        echo 'console.log('. json_encode( $a ) .')';
+        echo '</script>';
     }
 
     function DeleteCoffee($id){

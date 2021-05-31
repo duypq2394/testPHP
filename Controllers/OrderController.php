@@ -7,7 +7,15 @@ class OrderController extends BaseController
 {
     function CreateOrderList()
     {
-        
+        $orderModel = new OrderModel();
+
+        $orderArray = $orderModel->GetOrders();
+        echo '<script>';
+        echo 'console.log('. json_encode( $orderArray ) .')';
+        echo '</script>';
+        $this->tpl->assign('orderArray', $orderArray);
+        $result = $this->tpl->fetch('pages/orderList.tpl');
+        return $result;
     }
 
     function InsertOrder()
@@ -36,10 +44,15 @@ class OrderController extends BaseController
         if (empty($_POST["customerName"]) || empty($_POST["phoneNumber"])) return "Please enter phone number and name";
 
         if(!empty($orderContent)) {
-            
-            $order = new OrderEntity(-1, $customerName, $phoneNumber, $orderContent, $price, $currentDate);
+            $order = new OrderEntity(-1, $customerName, $phoneNumber, $orderContent, $totalPayment, $currentDate);
             $orderModel->InsertOrder($order);
         }
+    }
+
+    function DeleteOrder($id)
+    {
+        $orderModel = new OrderModel();
+        $orderModel->DeleteOrder($id);
     }
 }
 ?>

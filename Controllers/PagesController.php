@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\CoffeeModel;
+use App\Models\OrderModel;
 use App\Controllers\CoffeeController;
 use App\Controllers\OrderController;
 error_reporting(0);
@@ -31,7 +32,7 @@ class PagesController extends BaseController
     }
   
 
-    $title = "Coffee overview";
+    $title = "Coffee Overview";
     $content = $coffeeController->CreateCoffeeDropdownlist().$coffeeTables;
 
    
@@ -90,8 +91,10 @@ class PagesController extends BaseController
       $this->tpl->assign('coffee', $coffee);
       $content = $this->tpl->fetch('pages/coffeeUpdate.tpl');
     }
-    if(isset($_POST["intId"])) {
-      $this->UpdateCoffee($_POST["intId"]);
+    if(isset($_POST["coffeeId"])) {
+      $id = (int)$_POST["coffeeId"];
+      $coffeeController->UpdateCoffee($id);
+     
       $content = $this->tpl->fetch('pages/coffeeAdd.tpl');
     }
 
@@ -163,6 +166,22 @@ class PagesController extends BaseController
     $this->tpl->assign('title', $title);
     $this->tpl->assign('content', $productList);
     $this->tpl->display('Template.tpl' );
+  }
+
+  public function orderList(){
+   
+    $orderController = new OrderController($this->url, $this->action);
+    $orderModel = new OrderModel();
+    if(isset($_POST['finish']))
+    {
+      $orderController->DeleteOrder($_POST["finish"]);
+    }
+    $title = "List of orders";
+    $content = $orderController->CreateOrderList();
+    $this->tpl->assign('title', $title);
+    $this->tpl->assign('content', $content);
+    $this->tpl->display('Template.tpl' );
+
   }
 
   public function error()

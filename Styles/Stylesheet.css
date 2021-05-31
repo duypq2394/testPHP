@@ -32,9 +32,11 @@ body p {
 }
 
 #sidebar {
+    background-image: url(../Images/sidebar.jpg);
+    background-size: contain;
     float: right;
     width: 250px;
-    height: 400px;
+    height: 460px;
     margin: 20px 10px;
     padding: 10px;
     border: 2px solid #E3E3E3;
@@ -142,7 +144,7 @@ label {
 }
 
 .overViewTable {
-    width: 700px;
+    width: 750px;
 }
 
 .overViewTable tr {

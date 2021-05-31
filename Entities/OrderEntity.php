@@ -7,16 +7,16 @@ class OrderEntity
     public $clientPhoneNumber;
     public $orderContent;
     public $price;
-    public $date;
+    public $orderDate;
 
     
-    function __construct($id, $clientName, $clientPhoneNumber, $orderContent, $price, $date) {
+    function __construct($id, $clientName, $clientPhoneNumber, $orderContent, $price, $orderDate) {
         $this->id = $id;
         $this->clientName = $clientName;
         $this->clientPhoneNumber = $clientPhoneNumber;
         $this->orderContent = $orderContent;
         $this->price = $price;
-        $this->date = $date;
+        $this->orderDate = $orderDate;
     }
 }
 ?>

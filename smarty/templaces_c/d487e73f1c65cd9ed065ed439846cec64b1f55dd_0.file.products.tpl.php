@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-05-28 11:37:09
+/* Smarty version 3.1.39, created on 2021-05-31 04:15:16
   from 'C:\xampp\htdocs\test\testPHP\smarty\templates\products.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_60b0b9c560a115_47728689',
+  'unifunc' => 'content_60b446b49d3890_79409764',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd487e73f1c65cd9ed065ed439846cec64b1f55dd' => 
     array (
       0 => 'C:\\xampp\\htdocs\\test\\testPHP\\smarty\\templates\\products.tpl',
-      1 => 1622194476,
+      1 => 1622427312,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_60b0b9c560a115_47728689 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60b446b49d3890_79409764 (Smarty_Internal_Template $_smarty_tpl) {
 ?><form action = '' method = 'post' >
 <?php if ((isset($_smarty_tpl->tpl_vars['error']->value))) {?>
     <h4 style="color:red">
@@ -30,8 +30,8 @@ function content_60b0b9c560a115_47728689 (Smarty_Internal_Template $_smarty_tpl)
 <?php }?>
 <table>
     <tr style = "color: #3a3427">
-        <td><b>Name</b></td>
-        <td><b>Phone Number</b></td>
+        <td><b>名前</b></td>
+        <td><b>携帯電話番号</b></td>
         <td></td>
     </tr>
     <tr>

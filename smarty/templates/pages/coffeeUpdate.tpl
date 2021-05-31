@@ -2,7 +2,7 @@
 <form action='' method='post' name = "update">
     <fieldset>
         <legend>Add a new Coffee</legend>
-        <input type="hidden" name="intId" value={$coffee->id}/>
+        <input type="hidden" name="coffeeId" value={$coffee->id} />
         <label for='name'>Name: </label>
         <input type='text' class='inputField' name='txtName' value='{$coffee->name}' /><br/>
 

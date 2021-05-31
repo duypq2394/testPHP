@@ -28,10 +28,10 @@ class Database {
     // }
 
     public static function connect(){
+        $dsn = "sqlsrv:Server=DESKTOP-02D0HG7;Database=test";
         if (!isset(self::$dbInstance)) {
             try {
-              self::$dbInstance = new \PDO('mysql:host=localhost;dbname=coffeedb', 'root', '');
-              self::$dbInstance->exec("SET NAMES 'utf8'");
+              self::$dbInstance = new \PDO($dsn, "", "");
             } catch (PDOException $ex) {
               die($ex->getMessage());
             }

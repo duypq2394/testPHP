@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-05-31 03:27:00
+/* Smarty version 3.1.39, created on 2021-05-31 03:26:36
   from 'C:\xampp\htdocs\test\testPHP\smarty\templates\coffeeDropdownlist.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_60b43b64d52e39_77480063',
+  'unifunc' => 'content_60b43b4c9fe8a6_28473043',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_60b43b64d52e39_77480063 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60b43b4c9fe8a6_28473043 (Smarty_Internal_Template $_smarty_tpl) {
 ?><form action = '' method = 'post' width = '200px'>
     コーヒーのタイプをお選びください: 
     <select name = 'types' >

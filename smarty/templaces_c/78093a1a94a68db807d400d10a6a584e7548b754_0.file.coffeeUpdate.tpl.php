@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-05-26 04:34:39
+/* Smarty version 3.1.39, created on 2021-05-31 03:59:04
   from 'C:\xampp\htdocs\test\testPHP\smarty\templates\pages\coffeeUpdate.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_60adb3bf0ff376_68721148',
+  'unifunc' => 'content_60b442e8e0b159_75371434',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '78093a1a94a68db807d400d10a6a584e7548b754' => 
     array (
       0 => 'C:\\xampp\\htdocs\\test\\testPHP\\smarty\\templates\\pages\\coffeeUpdate.tpl',
-      1 => 1621996372,
+      1 => 1622426295,
       2 => 'file',
     ),
   ),
@@ -20,13 +20,13 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_60adb3bf0ff376_68721148 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60b442e8e0b159_75371434 (Smarty_Internal_Template $_smarty_tpl) {
 if ((isset($_smarty_tpl->tpl_vars['coffee']->value))) {?>
 <form action='' method='post' name = "update">
     <fieldset>
         <legend>Add a new Coffee</legend>
-        <input type="hidden" name="intId" value=<?php echo $_smarty_tpl->tpl_vars['coffee']->value->id;?>
-/>
+        <input type="hidden" name="coffeeId" value=<?php echo $_smarty_tpl->tpl_vars['coffee']->value->id;?>
+ />
         <label for='name'>Name: </label>
         <input type='text' class='inputField' name='txtName' value='<?php echo $_smarty_tpl->tpl_vars['coffee']->value->name;?>
 ' /><br/>

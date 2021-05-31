@@ -1,36 +1,17 @@
 <img src="Images/coffee1.png" class="imgLeft" />
-<h3>Title 1</h3>
+<h3>コーヒー</h3>
 <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lectus urna,
-    viverra in luctus quis, ullamcorper quis lorem. Vestibulum vulputate pellentesque
-    velit, et placerat dolor pulvinar in. Class aptent taciti sociosqu ad litora torquent
-    per conubia nostra, per inceptos himenaeos. Sed sit amet velit at purus elementum
-    dapibus. Nulla dapibus auctor vulputate. Sed cursus nisi at mauris mollis semper.
-    Vestibulum consectetur cursus dui sit amet pretium.
+コーヒーは、コーヒー豆（コーヒーノキの種子）を乾燥させて焙煎したものを粉砕し、お湯で抽出した飲み物です。コーヒーの起源には諸説ありますが、西暦900年頃アラビア人の医師ラーゼスが患者にコーヒーを飲ませ、「消化、利尿効果あり」との臨床の記録が残っています1)。中世後期にヨーロッパで広まり、現在世界中で飲まれるようになっています。日本には江戸時代後期に長崎の出島に駐在していたオランダ人より伝来しました。
 </p>
 
 <img src="Images/coffee2.png" class="imgRight" />
-<h3>Title 2</h3>
+<h3>焙煎されたコーヒー</h3>
 <p>
-    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-    himenaeos. Donec porttitor placerat nunc a consectetur. Ut fermentum eleifend molestie.
-    Donec fermentum risus sit amet ante cursus cursus. In hac habitasse platea dictumst.
-    Praesent semper ante ut felis molestie aliquet. Nam quis dui a magna molestie blandit
-    id et justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-    per inceptos himenaeos. Sed felis mauris, mattis a vulputate a, gravida nec metus.
-    Vivamus elit augue, ullamcorper eget scelerisque vitae, tincidunt eget lorem. Curabitur
-    id nibh libero, sed pulvinar nisi. Curabitur ultrices, neque in dignissim viverra,
-    justo nisl dignissim magna, a tempor eros turpis in diam. Suspendisse potenti. Sed
-    tincidunt est ac elit bibendum nec varius ante vestibulum.
+ 焙煎されたコーヒー豆は、抽出される前に粉状に細かく挽かれる。この工程をコーヒーの粉砕（グラインド）という。粉砕にはコーヒーミルあるいはグラインダーを用いる。場合によっては乳鉢や石臼などが用いられる。コーヒーは焙煎された豆のままで販売されるか、工場で粉砕された後で販売される。粉砕されると表面積の増加から空気酸化による品質低下が早まると言われているため、家庭用のコーヒーミルで抽出直前に挽いている人もいる。
  </p>
 
  <img src="Images/coffee3.png" class="imgLeft" />
- <h3>Title 3</h3>
+ <h3>粉砕されたコーヒー</h3>
  <p>
-    In hac habitasse platea dictumst. In purus leo, consequat nec porta a, varius sed
-    dui. Nulla placerat mollis tincidunt. Praesent at elit mi, a posuere quam. Suspendisse
-    vel leo eu orci lacinia vestibulum. Fusce vel sem fermentum lectus tempus ultrices.
-    Morbi arcu sem, rhoncus sit amet rutrum eget, interdum sit amet leo. Ut mattis lorem
-    vitae dolor tincidunt mattis a lacinia velit. Cras sed nibh at urna imperdiet laoreet
-    quis a risus.
- </p>'
+粉の大きさに応じて、細挽き、粗挽きと呼ばれる。粉砕粒子度合いと抽出法については、アメリカ商務省の推奨規格やそれを規定した専門書（具体的数値はコーヒーミルを参照）などがある。しかし多くの場合はそれらに直接従うことは少なく、当事者の経験や大まかな伝聞によって粒子度合いを決めていると考えられる。これらの挽き具合は、そのコーヒーがどのように抽出されるか、またどのような味にすることを望むかによって調整される。例えばエスプレッソではほとんど微粉に近い粉状になるよう極細挽きにして用いられる。
+ </p>
