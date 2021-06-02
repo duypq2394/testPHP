@@ -15,16 +15,16 @@ You need to install Composer
 For login sample, please use id:admin password:admin 
 
 
-#### 1.Clone this project into a Folder (Ex. TestApp)
+#### 1.Clone this project into a Folder (Ex: ExampleFolder)
 
 #### 2.Move the composer.php to the parent folder
 
-Ex: TestApp/testPHP/composer.php to TestApp/composer.php
+Ex: TestApp/testPHP/composer.php to ExampleFolder/composer.php
 
 #### 3. Run Composer
 composer install
 
 #### 4. Edit .htaccess file
-Test/testPHP/index.php?action=$1 [L,QSA] to {parent folder's name}/testPHP/index.php?action=$1 [L,QSA]
+App/testPHP/index.php?action=$1 [L,QSA] to {parent folder's name}/testPHP/index.php?action=$1 [L,QSA]
 
-Ex: Test/testPHP/index.php?action=$1 [L,QSA] to TestApp/testPHP/index.php?action=$1 [L,QSA]
+Ex: App/testPHP/index.php?action=$1 [L,QSA] to ExampleFolder/testPHP/index.php?action=$1 [L,QSA]
