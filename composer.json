@@ -1,0 +1,17 @@
+{
+    "name": "vendor_name/package_name",
+    "description": "My New Project",
+    "mininum-stability": "stable",
+    "lincense": "proprietary",
+    "authors": [{
+        "name": "DUY",
+        "email": "phamquangduy9418@gmail.com"
+    }],
+    "autoload": {
+        "psr-4": {
+            "App\\": "testPHP/",
+            "App\\Classes\\": "testPHP/Classes",
+            "App\\Entities\\": "testPHP/Entities"
+        }
+    }
+}
