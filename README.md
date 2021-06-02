@@ -19,7 +19,7 @@ For login sample, please use id:admin password:admin
 
 #### 2.Move the composer.php to the parent folder
 
-Ex: TestApp/testPHP/composer.php to ExampleFolder/composer.php
+Ex: App/testPHP/composer.php to ExampleFolder/composer.php
 
 #### 3. Run Composer
 composer install
