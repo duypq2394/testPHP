@@ -16,7 +16,7 @@ class OrderModel extends BaseModel {
             $price = $row[4];
             $orderDate = $row[5];
 
-            //Create coffee objects and store them in an array.
+            //Create order objects and store them in an array.
             $order = new OrderEntity ($id, $clientName, $clientPhoneNumber, $orderContent, $price, $orderDate);
             array_push($orderArray, $order);
         }

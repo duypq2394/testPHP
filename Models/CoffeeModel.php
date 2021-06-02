@@ -1,6 +1,9 @@
 <?php
 namespace App\Models;
 use App\Entities\CoffeeEntity;
+/**
+  * Contains related function for the Coffee pages
+  */
 class CoffeeModel extends BaseModel {
     function GetCoffeeTypes()
     {
@@ -66,10 +69,7 @@ class CoffeeModel extends BaseModel {
                     VALUES (?,?,?,?,?,?,?)";
 
         $dbh= $this->db->prepare($sql);
-        echo '<script>';
-        echo 'console.log('. json_encode( "ddddd" ) .')';
-        echo '</script>';
-        $a = $dbh->execute([$coffee->name, $coffee->type, $coffee->price, $coffee->roast, $coffee->country, "Images/Coffee/".$coffee->image, $coffee->review]);
+        $dbh->execute([$coffee->name, $coffee->type, $coffee->price, $coffee->roast, $coffee->country, "Images/Coffee/".$coffee->image, $coffee->review]);
         
     }
     
@@ -77,12 +77,8 @@ class CoffeeModel extends BaseModel {
         $sql = "UPDATE coffee SET name = ?, type = ?,price = ?,roast = ?,country = ?, image = ?,review = ?
                         WHERE id = ?";
 
-
         $dbh= $this->db->prepare($sql);
-        $a = $dbh->execute([$coffee->name, $coffee->type, $coffee->price, $coffee->roast, $coffee->country, "Images/Coffee/".$coffee->image, $coffee->review, $id]);
-        echo '<script>';
-        echo 'console.log('. json_encode( $a ) .')';
-        echo '</script>';
+        $dbh->execute([$coffee->name, $coffee->type, $coffee->price, $coffee->roast, $coffee->country, "Images/Coffee/".$coffee->image, $coffee->review, $id]);
     }
 
     function DeleteCoffee($id){

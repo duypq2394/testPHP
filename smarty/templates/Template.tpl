@@ -17,7 +17,7 @@
                 <li><b><a href="index">ホーム</a></b></li>
                 <li><b><a href="coffee">製品の紹介</a></b></li>
                 <li><b><a href="shop">ショップ</a></b></li>
-                <li><b><a href="#">お店について</a></b></li>
+                <li><b><a href="about">お店について</a></b></li>
                 <li><b><a href="management">管理</a></b></li>
             </ul>
         </nav>

@@ -3,6 +3,9 @@ namespace App\Controllers;
 
 use App\Models\OrderModel;
 use App\Entities\OrderEntity;
+/**
+  * Containing functions for the pages relating to order object
+  */
 class OrderController extends BaseController
 {
     function CreateOrderList()
@@ -10,11 +13,8 @@ class OrderController extends BaseController
         $orderModel = new OrderModel();
 
         $orderArray = $orderModel->GetOrders();
-        echo '<script>';
-        echo 'console.log('. json_encode( $orderArray ) .')';
-        echo '</script>';
         $this->tpl->assign('orderArray', $orderArray);
-        $result = $this->tpl->fetch('pages/orderList.tpl');
+        $result = $this->tpl->fetch('pages/listOrders.tpl');
         return $result;
     }
 

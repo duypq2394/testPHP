@@ -42,6 +42,17 @@ body p {
     border: 2px solid #E3E3E3;
 }
 
+#maps {
+    background-image: url(../Images/map.jpg);
+    background-size: contain;
+    float: right;
+    margin: 20px 10px;
+    padding: 10px;
+    border: 2px solid #E3E3E3;
+    height: 580px;
+    width: 650px;
+}
+
 footer {
     clear: both;
     width: auto;

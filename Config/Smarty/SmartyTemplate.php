@@ -1,7 +1,8 @@
 <?php
-
 namespace App\Config\Smarty;
-
+/**
+  * Config smarty
+  */
 class SmartyTemplate extends \Smarty {
 
     function __construct() {

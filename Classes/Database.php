@@ -2,36 +2,20 @@
 namespace App\Classes;
 
 use App\Config\Config;
-
+/**
+  * Setting and connectting to database
+  */
 class Database {
 
-    private $username = null, $password = null, $dsn = null;
-
-    public $database;
-
-    public $errors;
+    private $dsn = null;
 
     private static $dbInstance = null;
 
-    // private function __construct(){
-    //     $this->username = Config::get('mysql/username');
-    //     $this->password = Config::get('mysql/password');
-    //     $this->dsn = 'mysql:host=' . Config::get('mysql/host') . ';dbname=' . Config::get('mysql/database');
-
-    //     array ( \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION );
-
-    //     try{
-    //         $this->database = new \PDO($this->dsn, $this->username, $this->password);
-    //     }catch( \PDOException $ex ) {
-    //         $this->errors = $ex;
-    //     }
-    // }
-
     public static function connect(){
-        $dsn = "sqlsrv:Server=DESKTOP-02D0HG7;Database=test";
+      $dsn = "sqlsrv:Server=coffeedatabase.mssql.somee.com;Database=coffeedatabase";
         if (!isset(self::$dbInstance)) {
             try {
-              self::$dbInstance = new \PDO($dsn, "", "");
+              self::$dbInstance = new \PDO($dsn, "duypq94_SQLLogin_1", "ebva9yk4u7");
             } catch (PDOException $ex) {
               die($ex->getMessage());
             }

@@ -3,10 +3,13 @@ namespace App\Controllers;
 
 use App\Models\CoffeeModel;
 use App\Entities\CoffeeEntity;
-//Contains non-database related function for the Coffee page
+/**
+  * Containing functions for the pages relating to coffee object
+  */
 class  CoffeeController extends BaseController
 {
 
+    //Renders list of coffee for managing
     function CreateOverviewTable()
     {
         $coffeeArray = $this->GetCoffeeByType('%');
@@ -14,36 +17,34 @@ class  CoffeeController extends BaseController
         $result = $this->tpl->fetch('Table.tpl');
         return $result;
     }
-
-    function CreateCoffeeDropdownlist()
+    
+     //Create dropdown list of types of coffee
+    function CreateCoffeeTypeDropdownlist()
     {
         $coffeeModel = new CoffeeModel();
         $valueArry = $this->GetCoffeeTypes();
         $this->tpl->assign('valueArry', $valueArry);
-        $result = $this->tpl->fetch('coffeeDropdownlist.tpl');
+        $result = $this->tpl->fetch('CoffeeDropdownlist.tpl');
         return $result;
     }
 
-    function console_log( $data ){
-        echo '<script>';
-        echo 'console.log('. json_encode( $data ) .')';
-        echo '</script>';
-    }
-
+    //Fill page with coffees of the selected type
     function CreateCoffeeTables($types)
     {
         $coffeeModel = new CoffeeModel();
         $coffeeArray = $coffeeModel->GetCoffeeByType($types);
         $this->tpl->assign('coffeeArray', $coffeeArray);
-        $result = $this->tpl->fetch('coffeeTable.tpl');
+        $result = $this->tpl->fetch('CoffeeTable.tpl');
         return $result;
     }
+
+    //Renders list of coffee products that are used for order
     function CreateProductList()
     {
         $coffeeModel = new CoffeeModel();
         $coffeeArray = $coffeeModel->GetCoffeeByType("%");
         $this->tpl->assign('coffeeArray', $coffeeArray);
-        $result = $this->tpl->fetch('products.tpl');
+        $result = $this->tpl->fetch('Products.tpl');
         return $result;
     }
 
@@ -72,7 +73,6 @@ class  CoffeeController extends BaseController
         return $imageArray;
     }
 
-    //<editor-fold desc="Set Methods">
     function InsertCoffee() {
         $name = $_POST["txtName"];
         $type = $_POST["ddlType"];

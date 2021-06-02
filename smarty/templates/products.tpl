@@ -6,7 +6,7 @@
 {/if}
 <table>
     <tr style = "color: #3a3427">
-        <td><b>名前</b></td>
+        <td><b>あなたの名前</b></td>
         <td><b>携帯電話番号</b></td>
         <td></td>
     </tr>
