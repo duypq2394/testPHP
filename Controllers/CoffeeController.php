@@ -147,7 +147,7 @@ class  CoffeeController extends BaseController
     function InsertCoffee() {
         $name = $_POST["txtName"];
         $type = $_POST["ddlType"];
-        $price = $_POST["txtPrice"];
+        $price = floatval($_POST["txtPrice"]);
         $roast = $_POST["txtRoast"];
         $country = $_POST["txtCountry"];
         $image = $_POST["ddlImage"];
@@ -162,7 +162,7 @@ class  CoffeeController extends BaseController
     function UpdateCoffee($id) {
         $name = $_POST["txtName"];
         $type = $_POST["ddlType"];
-        $price = $_POST["txtPrice"];
+        $price = floatval($_POST["txtPrice"]);
         $roast = $_POST["txtRoast"];
         $country = $_POST["txtCountry"];
         $image = $_POST["ddlImage"];

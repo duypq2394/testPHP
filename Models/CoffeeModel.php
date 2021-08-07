@@ -25,7 +25,7 @@ class CoffeeModel extends BaseModel {
             $id = $row[0];
             $name = $row[1];
             $type = $row[2];
-            $price = $row[3];
+            $price = floatval($row[3]);
             $roast = $row[4];
             $country = $row[5];
             $image = $row[6];
@@ -54,7 +54,7 @@ class CoffeeModel extends BaseModel {
             $id = $row[0];
             $name = $row[1];
             $type = $row[2];
-            $price = $row[3];
+            $price = floatval($row[3]);
             $roast = $row[4];
             $country = $row[5];
             $image = $row[6];
@@ -77,7 +77,7 @@ class CoffeeModel extends BaseModel {
         foreach ($dbh->fetchAll() as $row) {
             $name = $row[1];
             $type = $row[2];
-            $price = $row[3];
+            $price = floatval($row[3]);
             $roast = $row[4];
             $country = $row[5];
             $image = $row[6];
@@ -103,7 +103,7 @@ class CoffeeModel extends BaseModel {
             $id = $row[0];
             $name = $row[1];
             $type = $row[2];
-            $price = $row[3];
+            $price = floatval($row[3]);
             $roast = $row[4];
             $country = $row[5];
             $image = $row[6];
@@ -167,7 +167,7 @@ class CoffeeModel extends BaseModel {
             $id = $row[0];
             $name = $row[1];
             $type = $row[2];
-            $price = $row[3];
+            $price = floatval($row[3]);
             $roast = $row[4];
             $country = $row[5];
             $image = $row[6];
