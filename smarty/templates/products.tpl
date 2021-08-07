@@ -1,3 +1,4 @@
+<div style= "display: grid;">
 <form action = '' method = 'post' >
 {if isset($error)}
     <h4 style="color:red">
@@ -30,3 +31,6 @@
     </div>
 {/foreach}
 </form>
+
+{$paging}
+</div>

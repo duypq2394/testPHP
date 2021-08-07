@@ -1,19 +1,46 @@
 <?php
 namespace App\Controllers;
 
+require_once ('./PHPExcel/Classes/PHPExcel/IOFactory.php');
+require_once ('./PHPExcel/Classes/PHPExcel.php');
+
 use App\Models\CoffeeModel;
 use App\Entities\CoffeeEntity;
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 /**
   * Containing functions for the pages relating to coffee object
   */
 class  CoffeeController extends BaseController
 {
+    const PAGESIZE = 9;
 
     //Renders list of coffee for managing
-    function CreateOverviewTable()
+    function CreateOverviewTable($name)
     {
-        $coffeeArray = $this->GetCoffeeByType('%');
+        if(!isset($_GET['page'])|| $_GET['page' ]== '1'){
+            $startPage = 0;
+            $currentPage = 1;
+        } else {
+            $startPage = ($_GET['page'] - 1) * self::PAGESIZE;
+            $currentPage = $_GET['page'];
+        }
+        $coffeeModel = new CoffeeModel();
+        $coffeeArray = $coffeeModel->GetCoffeeForOverViewPages($name, $startPage, self::PAGESIZE);
+        $numberRows = $coffeeModel->CountRows('%');
+        // echo '<script>';
+        // echo 'console.log('. json_encode( $numberRows ) .')';
+        // echo '</script>';
+        $this->tpl->assign('numberRows', $numberRows);
+        $this->tpl->assign('pageSize', self::PAGESIZE);
+        $this->tpl->assign('page', $currentPage);
+        $this->tpl->assign('action',$this->action);
+        $paging = $this->tpl->fetch('Paging.tpl');
+
         $this->tpl->assign('coffeeArray', $coffeeArray);
+        $this->tpl->assign('paging', $paging);
         $result = $this->tpl->fetch('Table.tpl');
         return $result;
     }
@@ -29,11 +56,39 @@ class  CoffeeController extends BaseController
     }
 
     //Fill page with coffees of the selected type
-    function CreateCoffeeTables($types)
+    function CreateCoffeeTables()
     {
+        if(!isset($_GET['page'])|| $_GET['page' ]== '1'){
+            $startPage = 0;
+            $currentPage = 1;
+        } else {
+            $startPage = ($_GET['page'] - 1) * self::PAGESIZE;
+            $currentPage = $_GET['page'];
+        }
+
         $coffeeModel = new CoffeeModel();
-        $coffeeArray = $coffeeModel->GetCoffeeByType($types);
+        if(isset($_POST['types']))
+        {
+          //Fill page with coffees of the selected type
+          $coffeeArray = $coffeeModel->GetCoffeeByType($_POST['types'], $startPage, self::PAGESIZE);
+          $numberRows = $coffeeModel->CountRows($_POST['types']);
+        }
+        else{
+          //Page is loaded for the first time, no type selected -> Fetch all types
+          $coffeeArray = $coffeeModel->GetCoffeeByType('%', $startPage, self::PAGESIZE);
+          $numberRows = $coffeeModel->CountRows('%');
+        }
+        // echo '<script>';
+        // echo 'console.log('. json_encode($_POST['types'] ) .')';
+        // echo '</script>';
+        $this->tpl->assign('numberRows', $numberRows);
+        $this->tpl->assign('pageSize', self::PAGESIZE);
+        $this->tpl->assign('page', $currentPage);
+        $this->tpl->assign('action',$this->action);
+        $paging = $this->tpl->fetch('Paging.tpl');
+
         $this->tpl->assign('coffeeArray', $coffeeArray);
+        $this->tpl->assign('paging', $paging);
         $result = $this->tpl->fetch('CoffeeTable.tpl');
         return $result;
     }
@@ -41,9 +96,25 @@ class  CoffeeController extends BaseController
     //Renders list of coffee products that are used for order
     function CreateProductList()
     {
+        if(!isset($_GET['page'])|| $_GET['page' ]== '1'){
+            $startPage = 0;
+            $currentPage = 1;
+        } else {
+            $startPage = ($_GET['page'] - 1) * self::PAGESIZE;
+            $currentPage = $_GET['page'];
+        }
         $coffeeModel = new CoffeeModel();
-        $coffeeArray = $coffeeModel->GetCoffeeByType("%");
+        $numberRows = $coffeeModel->CountRows('%');
+        $coffeeArray = $coffeeModel->GetCoffeeByType('%', $startPage, self::PAGESIZE);
+
+        $this->tpl->assign('numberRows', $numberRows);
+        $this->tpl->assign('pageSize', self::PAGESIZE);
+        $this->tpl->assign('page', $currentPage);
+        $this->tpl->assign('action',$this->action);
+        $paging = $this->tpl->fetch('Paging.tpl');
+
         $this->tpl->assign('coffeeArray', $coffeeArray);
+        $this->tpl->assign('paging', $paging);
         $result = $this->tpl->fetch('Products.tpl');
         return $result;
     }
@@ -81,8 +152,9 @@ class  CoffeeController extends BaseController
         $country = $_POST["txtCountry"];
         $image = $_POST["ddlImage"];
         $review = $_POST["txtReview"];
+        $date = date("Y/m/d");
 
-        $coffee = new CoffeeEntity (-1, $name, $type, $price, $roast, $country, $image, $review);
+        $coffee = new CoffeeEntity (-1, $name, $type, $price, $roast, $country, $image, $review, $date);
         $coffeeModel = new CoffeeModel();
         $coffeeModel->InsertCoffee($coffee);
     }
@@ -95,8 +167,9 @@ class  CoffeeController extends BaseController
         $country = $_POST["txtCountry"];
         $image = $_POST["ddlImage"];
         $review = $_POST["txtReview"];
+        $date = $_POST["dateTime"];
 
-        $coffee = new CoffeeEntity ($id, $name, $type, $price, $roast, $country, $image, $review);
+        $coffee = new CoffeeEntity ($id, $name, $type, $price, $roast, $country, $image, $review, $date);
         $coffeeModel = new CoffeeModel();
         $coffeeModel->UpdateCoffee($id, $coffee);
     }
@@ -121,6 +194,46 @@ class  CoffeeController extends BaseController
         $coffeeModel = new CoffeeModel();
         return $coffeeModel->GetCoffeeTypes();
     }
+
+    public function downloadListCoffee(){
+        $coffeeModel = new CoffeeModel();
+        $database = $coffeeModel->GetALLCoffee();
+        // Create new PHPExcel object
+        $objPHPExcel = new \PHPExcel(); 
+        //setting column heading
+
+        $objPHPExcel->getActiveSheet()->setCellValue('A1',"ID"); 
+        $objPHPExcel->getActiveSheet()->setCellValue('B1',"Name"); 
+        $objPHPExcel->getActiveSheet()->setCellValue('C1',"Type"); 
+        $objPHPExcel->getActiveSheet()->setCellValue('D1',"Price"); 
+        $objPHPExcel->getActiveSheet()->setCellValue('E1',"Roast"); 
+        $objPHPExcel->getActiveSheet()->setCellValue('F1',"Country"); 
+        $objPHPExcel->getActiveSheet()->setCellValue('G1',"Review"); 
+        
+        //setting column body
+        $i=2; //starting from row 2 bcz row 1 set to header
+        foreach($database as $data) {
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.$i,$data->id);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.$i,$data->name);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.$i,$data->type);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.$i,$data->price);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.$i,$data->roast);
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.$i,$data->country);
+            $objPHPExcel->getActiveSheet()->setCellValue('G'.$i,$data->review);
+            $i++;
+        }
+
+        // Redirect output to a client’s web browser (Excel5)
+        header('Content-Encoding: UTF-8');
+        header('Content-Type: application/csv; charset=UTF-8');
+        header('Content-Disposition: attachment;filename="export.csv"');
+        header('Cache-Control: max-age=0');
+        
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+    
+        $objWriter->save('php://output');
+        exit;
+    } 
 }
 
 ?>

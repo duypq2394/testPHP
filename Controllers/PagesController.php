@@ -5,6 +5,10 @@ use App\Models\CoffeeModel;
 use App\Models\OrderModel;
 use App\Controllers\CoffeeController;
 use App\Controllers\OrderController;
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 error_reporting(0);
 session_start();
 /**
@@ -26,18 +30,8 @@ class PagesController extends BaseController
   public function coffee()
   {
     $coffeeController = new CoffeeController($this->url, $this->action);
-    if(isset($_POST['types']))
-    {
-      //Fill page with coffees of the selected type
-      $coffeeTables = $coffeeController->CreateCoffeeTables($_POST['types']);
-    }
-    else{
-      //Page is loaded for the first time, no type selected -> Fetch all types
-      $coffeeTables = $coffeeController->CreateCoffeeTables('%');
-    }
-  
-
     $title = "Coffee Overview";
+    $coffeeTables = $coffeeController->CreateCoffeeTables();
     $content = $coffeeController->CreateCoffeeTypeDropdownlist().$coffeeTables;
 
     $this->tpl->assign('title', $title);
@@ -58,7 +52,7 @@ class PagesController extends BaseController
       $this->tpl->display('Template.tpl');       
     }else {
       //Return to login page
-      header("location: loginManagement");
+      header("location: ?action=loginManagement");
     }
   }
 
@@ -73,11 +67,26 @@ class PagesController extends BaseController
     $valueArray=['Classic','Espresso','Latte'];
     $images = $coffeeController->GetImages();
 
-    if(isset($_POST["txtName"])) $coffeeController->InsertCoffee();
+    if(isset($_POST["addCoffee"])) 
+    {
+      echo '<script>';
+        echo 'console.log('. json_encode('kkk' ) .')';
+        echo '</script>';
+      if(empty($_POST["txtName"])) 
+      {
+        $this->tpl->assign('nameErr', "コーヒ名を入力してください");
+      } else {
+        echo '<script>';
+        echo 'console.log('. json_encode('ddd' ) .')';
+        echo '</script>';
+        $coffeeController->InsertCoffee();
+      }
+    }
     
     $this->tpl->assign('title', $title);
     $this->tpl->assign('images',$images);
     $this->tpl->assign('valueArray', $valueArray);
+    $this->tpl->assign('date',date("Y/m/d"));
     $content = $this->tpl->fetch('pages/CoffeeAdd.tpl');
     $this->tpl->assign('content', $content);
     $this->tpl->display('Template.tpl' );
@@ -103,6 +112,7 @@ class PagesController extends BaseController
       $coffee = $coffeeController->GetCoffeeById($_POST["update"]);
       $this->tpl->assign('coffee', $coffee);
       $content = $this->tpl->fetch('pages/CoffeeUpdate.tpl');
+      $_POST = array();
     }
 
     //Update coffee product's information by it's own id
@@ -111,6 +121,7 @@ class PagesController extends BaseController
       $coffeeController->UpdateCoffee($id);
      
       $content = $this->tpl->fetch('pages/CoffeeAdd.tpl');
+      $_POST = array();
     }
 
     $this->tpl->assign('content', $content);
@@ -121,20 +132,39 @@ class PagesController extends BaseController
   public function coffeeOverView()
   {
     $coffeeController = new CoffeeController($this->url, $this->action);
+    
+    if(isset($_POST['searchName']))
+    {
+      $coffeeTables = $coffeeController->CreateOverViewTable($_POST['searchName']);
+      $_POST = array();
+    }
+    else{
+      $coffeeTables = $coffeeController->CreateOverViewTable('');
+    }
+
     if(isset($_POST['delete']))
     {
       $coffeeController->DeleteCoffee($_POST["delete"]);
+      header('Location: ?action=coffeeOverView');
     }
+
+    if(isset($_POST['downloadListCoffee']))
+    {
+      $coffeeController->downloadListCoffee();
+    }
+
     $title = "Manage coffee objects";
-    $content = $coffeeController->CreateOverViewTable();
+    $content = $coffeeTables;
     $this->tpl->assign('title', $title);
     $this->tpl->assign('content', $content);
     $this->tpl->display('Template.tpl' );
+    $_POST = array();
   }
 
   //Login to enter management page
   public function loginManagement()
   {
+
     if(isset($_POST['username'])){
       if($_POST['username'] == 'admin' && $_POST['password'] == 'admin'){
         
@@ -146,10 +176,10 @@ class PagesController extends BaseController
           setcookie ("username", $_POST['username'], time() + (3600 * 24), "/");
           setcookie ("password", $_POST['password'], time() + (3600 * 24), "/");
         }
-        
+        $_POST = array();
         //Returning to management page
-        header("location: management");
-  
+        header("location: ?action=management");
+        
       }else {
         $this->tpl->assign("error", "ユーザー名またはパスワードが間違っています。");
       }
@@ -177,10 +207,7 @@ class PagesController extends BaseController
     if(isset($error)){
       $this->tpl->assign('error', $error);
     }
-
-    $coffeeArray = $coffeeModel->GetCoffeeByType("%");
-    $this->tpl->assign('coffeeArray', $coffeeArray);
-    $productList = $this->tpl->fetch('Products.tpl');
+    $productList = $coffeeController->CreateProductList();
    
     $this->tpl->assign('title', $title);
     $this->tpl->assign('content', $productList);
@@ -195,6 +222,7 @@ class PagesController extends BaseController
     if(isset($_POST['finish']))
     {
       $orderController->DeleteOrder($_POST["finish"]);
+      $_POST = array();
     }
     $title = "List of orders";
     $content = $orderController->CreateOrderList();
@@ -220,6 +248,7 @@ class PagesController extends BaseController
               echo '<script>alert("アップロードが完了しました")</script>';
           }
       }
+      $_POST = array();
     }
     $title = "Upload new image";
     $content = $this->tpl->fetch('pages/upLoadImage.tpl');
@@ -238,6 +267,72 @@ class PagesController extends BaseController
     $this->tpl->display('Template.tpl' );
   }
   
+  public function contact() {
+    $mail = new PHPMailer(true);
+    
+    if(isset($_POST['sendEmail']))
+    {
+      try {
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                     
+        $mail->isSMTP();                                           
+        $mail->Host       = 'smtp.gmail.com';               
+        $mail->SMTPAuth   = true;                                
+        $mail->Username   = 'simple.cofeeshop@gmail.com';                    
+        $mail->Password   = 'zaTbej-dogcyk-vuwdi3';                           
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;      
+        $mail->Port       = 465;                            
+
+        $mail->setFrom('from@example.com', 'Coffee Shop');
+        $mail->addAddress('simple.coffeeshop@gmail.com');           
+        $mail->addReplyTo('simple.coffeeshop@gmail.com', 'Coffee Shop');
+        
+        $title = mb_encode_mimeheader($_POST['title'], "ISO-2022-JP");
+        $mail->isHTML(true);                                  
+        $mail->Subject = $title;
+        $mail->Body    = $_POST['message'];
+        // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        if(!empty($_POST['addedEmail'])) { 
+          if (!filter_var($_POST['addedEmail'], FILTER_VALIDATE_EMAIL)) {
+            $this->tpl->assign('emailErr', "メールアドレスの形式が正しくありません");
+          } else {
+            switch ($_POST['otherEmail']) {
+              case 1:
+                  $mail->addAddress($_POST['addedEmail']);  
+                  break;
+              case 2:
+                  $mail->addCC($_POST['addedEmail']);
+                  break;
+              case 3:
+                  $mail->addBCC($_POST['addedEmail']);
+                  break;
+              default:
+                  break;
+            }
+          }
+        }
+        if(empty($_POST['title'])) {
+          $this->tpl->assign('titleErr', "件名を入力してください");
+        }
+        if(empty($_POST['message'])) {
+          $this->tpl->assign('messageErr', "メッセージを入力してください");
+        }
+        $mail->send();
+        header("location: ?action=contact");
+      } catch (Exception $e) {
+          // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+          echo '<script>';
+          echo 'console.log('. json_encode($mail->ErrorInfo) .')';
+          echo '</script>';
+      }
+      
+      // error_reporting(E_ALL);
+      // ini_set('display_errors', true);
+    }
+    $content = $this->tpl->fetch('pages/emailForm.tpl');
+    $this->tpl->assign('title', $title);
+    $this->tpl->assign('content', $content);
+    $this->tpl->display('Template.tpl' );
+  }
   public function error()
   {
     $this->tpl->display('error.tpl' );

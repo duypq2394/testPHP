@@ -6,5 +6,5 @@
         <option value = '{$value}'>{$value}</option>
     {/foreach}
     </select>
-    <input type = 'submit' value = '検索' />
+    <input type = 'submit' formaction='?action=coffee' value = '検索' />
 </form>
